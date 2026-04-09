@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import { writable } from 'svelte/store';
-    import { generate, grabRandomProject, grabDescription } from "$lib/index.js"
+    import { generate, grabRandomProject } from "$lib/index.js"
     import {highScore} from "$lib/highScore.svelte.js";
     import Dialog from "$lib/Dialog.svelte";
 
@@ -45,7 +45,6 @@
 
         // console.log(meow);
         project = meow.one;
-        project.description = await grabDescription(project.id);
         other = meow.two;
     }
 
@@ -59,7 +58,7 @@
         let amount = null;
         const time = (stamp) => {
             if (!amount) amount = stamp;
-            const progress = Math.min((stamp - amount) / 2500, 1);
+            const progress = Math.min((stamp - amount) / 1500, 1);
             dropshit = Math.floor(progress * (a - 0) + 0)
             if (progress < 1) {
                 window.requestAnimationFrame(time);
@@ -79,7 +78,7 @@
                 await shit();
                 animation = null;
                 // gameState = "lose";
-            }, 3500);
+            }, 2500);
         } else {
             
             animation = "running";
@@ -88,7 +87,7 @@
             setTimeout(() => {
                 gameState = "lose";
                 if (text > wasd.value) wasd.value = text;
-            }, 3500);
+            }, 2500);
         }
     }
 
