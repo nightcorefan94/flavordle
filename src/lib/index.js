@@ -1,9 +1,13 @@
 // place files you want to import through the `$lib` alias in this folder.exp
+let data = null;
 export async function grabRandomProject() {
-    let fetcher = await fetch("https://ftpdb.jam06452.uk/api/random_projects");
-    let random = await fetcher.json();
-    // let rand = random[Math.floor(Math.random() * random.length)];
-    return random;
+    if (data === null) {
+        let fetcher = await fetch("res.json");
+        let random = await fetcher.json();
+        data = random;
+    }
+
+    return data;
 }
 
 

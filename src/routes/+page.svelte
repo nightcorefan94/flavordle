@@ -3,6 +3,7 @@
     import { writable } from 'svelte/store';
     import { generate, grabRandomProject, grabDescription } from "$lib/index.js"
     import {highScore} from "$lib/highScore.svelte.js";
+    import Dialog from "$lib/Dialog.svelte";
 
     let project = $state({});
     let other = $state({});
@@ -12,6 +13,8 @@
     let dropshit = $state(0);
 
     let wasd = highScore();
+    let dialog; 
+
 
     // const stored = localStorage.highScore
     // const highScore = writable(stored || 0);
@@ -97,6 +100,16 @@
             <p class="px-4 py-2 whitespace-nowrap">Flavordle</p>
             <p class="px-4 py-2 whitespace-nowrap">Points: {text}</p>
             <p class="px-4 py-2 whitespace-nowrap">High Score: {wasd.value}</p>
+            <button onclick={() => dialog.showModal()} class="bg-gray-200 rounded-md">How to Play</button>
+            <Dialog bind:dialog on:close={() => console.log('closed')}>
+	            <h1 class="text-3xl">Welcome to Flavordle!</h1>
+                <p class="text-lg font-bold">How to play:</p>
+                <p>You will see two Flavortown projects next to each other</p>
+                <p>One has how many hours spent on the project and another one you don't know how many hours.</p>
+                <p>Your goal is to click if the other project has more hours spent or a lower amount by clicking the buttons on it.</p>
+                <p>I hope you have fun :)</p>
+                <button onclick={() => dialog.close()} class="rounded-md px-3 py-1 bg-lime-300">OK</button>
+            </Dialog>
         </div>
         <div class="flex flex-col md:flex-row flex-1">
             <div style="background-image: url({project.banner_url}); background-position: center; background-size: cover;" class="px-4 py-2 flex w-full md:w-1/2 md:h-full h-1/2 items-center justify-center flex-col">
